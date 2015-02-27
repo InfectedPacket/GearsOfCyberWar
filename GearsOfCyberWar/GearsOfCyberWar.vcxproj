@@ -20,6 +20,7 @@
     <ProjectGuid>{A11FB0A8-A953-4B18-BC1B-93DD504A6C7D}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>GearsOfCyberWar</RootNamespace>
+    <ProjectName>GetWindowsVersionInfo</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

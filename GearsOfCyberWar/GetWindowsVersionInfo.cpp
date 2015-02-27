@@ -4,6 +4,39 @@
 #include "GetWindowsVersionInfo.h"
 
 
+/**
+<summary>Obtains information about the current Windows operating system by 
+using the GetVersionEx and GetSystemMetrics Windows API functions. The results
+are stored in the provided non-null parameters.</summary>
+<param name="VersionMajor">Stores the major version of Windows.
+This parameter cannot be NULL.</param>
+<param name="VersionMinor">Stores the minor version of Windows.
+This parameter cannot be NULL.</param>
+<param name="ProductType">Stores the product type information. The
+product type is useful to determine if the OS is a Domain Controller, 
+a server or a workstation. If a NULL pointer is provided, the product type is
+not returned.</param>
+<param name="BuildNumber">Stores the build number of Windows if any.
+If a NULL pointer is provided, the product type is
+not returned.</param>
+<param name="PlatformId">Stores the platform id of Windows if any.
+If a NULL pointer is provided, the platform id is not returned.</param>
+<param name="ServicePackMajor">Stores the major version of the service pack if any.
+If a NULL pointer is provided, the platform id is not returned.</param>
+<param name="ServicePackMinor">Stores the minor version of the service pack if any.
+If a NULL pointer is provided, the platform id is not returned.</param>
+<param name="Suite">Stores information about the product suite if any.
+If a NULL pointer is provided, the platform id is not returned.</param>
+<param name="ServerBuild">Stores information about the build of the server if any.
+If a NULL pointer is provided, the platform id is not returned.</param>
+<returns>Returns 1 if the function completed successfully.</returns>
+<see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724833%28v=vs.85%29.aspx">
+OSVERSIONINFOEX structure</see>
+<see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724451%28v=vs.85%29.aspx">
+GetVersionEx function</see>
+<see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms724385%28v=vs.85%29.aspx">
+GetSystemMetrics function</see>
+*/
 int GetWindowsVersionInfo(unsigned char* VersionMajor, 
 							unsigned char* VersionMinor, 
 							unsigned short* BuildNumber,
@@ -28,28 +61,34 @@ VersionInformation.dwOSVersionInfoSize = sizeof(OSVERSIONINFOEX);
 result = GetVersionEx((LPOSVERSIONINFO)&VersionInformation);
 
 if (result == 0) {
-    return ERROR_WINDOWS_API;
+    return 0xFFFF;
 }
 
+//Retrieve basic version information of Windows
 *VersionMajor		= (unsigned char)VersionInformation.dwMajorVersion;
 *VersionMinor		= (unsigned char)VersionInformation.dwMinorVersion;
 
+//If requested, return the build number
 if(BuildNumber) {
 	*BuildNumber		= (unsigned short)VersionInformation.dwBuildNumber;
 }
 
+//If requested, return the platform id
 if (PlatformId) {
 	*PlatformId			= (unsigned char)VersionInformation.dwPlatformId;
 }
 
+//If requested, return the major version of the service pack
 if (ServicePackMajor) {
 	*ServicePackMajor   = (unsigned char)VersionInformation.wServicePackMajor;
 }
 
+//If requested, return the minor version of the service pack
 if (ServicePackMinor) {
 	*ServicePackMinor   = (unsigned char)VersionInformation.wServicePackMinor;
 }
 
+//If requested, return the product suite of the service pack
 if (Suite) {
 	*Suite				= (unsigned short) VersionInformation.wSuiteMask;
 }
@@ -62,11 +101,14 @@ if (ServerBuild) {
 	*ServerBuild = GetSystemMetrics(SM_SERVERR2);
 }
 
-return SUCCESS;
+//Return SUCCESS
+return 0x0001;
 } // end function
 
 /**
-
+<summary></summary>
+<returns>A char array containing a human readable description of the
+operating system based on the given parameters.</returns>
 */
 char* GetWindowsVersionDesc(unsigned char* VersionMajor, 
 							unsigned char* VersionMinor, 
@@ -80,12 +122,16 @@ char* GetWindowsVersionDesc(unsigned char* VersionMajor,
 char* WindowsDescription = new char[256];
 SecureZeroMemory(WindowsDescription, 256);
 
+//We assume that at this point, we're on a Windows machine.
 strcpy(WindowsDescription, "Windows");
 
+//If nothing was requested, return.
 if (VersionMajor == NULL || VersionMinor == NULL) {
-	return NULL;
+	return WindowsDescription;
 }
 
+//Start by describing the main Windows version
+//Windows XP, Server 2012, Windows 8....
 if (*VersionMajor == 6) {
 	switch (*VersionMinor) {
 	case 4:
@@ -141,7 +187,15 @@ if (*VersionMajor == 6) {
 } else if (*VersionMajor == 5) {
 	switch (*VersionMinor) {
 	case 2:
-		//TODO:Differ various 5.2 versions
+		if (*ServerBuild != 0) {
+			strcat(WindowsDescription, " Server 2003 R2");
+		} else if (*ServerBuild == 0) {
+			strcat(WindowsDescription, " Server 2003");
+		} else if (*Suite & 0x00008000) {
+			strcat(WindowsDescription, " Home Server");
+		} else {
+			strcat(WindowsDescription, " XP Professional (x64)");
+		}
 		break;
 	case 1:
 		strcat(WindowsDescription, " XP");
@@ -165,11 +219,59 @@ if (*VersionMajor == 6) {
 		break;
 	}
 } else if (*VersionMajor == 3) {
-	//TODO:Complete lower versions
+	//Wow if we ever get here, we're at the zombie apocalypse...
+	strcat(WindowsDescription, " 3.1 or inferior.");
 } else {
 	return WindowsDescription;
 }
 
+//If there is a suite, add it after the version
+//of Windows
+if (Suite) {
+	switch (*Suite) {
+	case 0x001:
+		strcat(WindowsDescription, " Small Business");
+		break;
+	case 0x002:
+		strcat(WindowsDescription, " Enterprise");
+		break;
+	case 0x004:
+		strcat(WindowsDescription, " BackOffice");
+		break;
+	case 0x008:
+		strcat(WindowsDescription, " Communications");
+		break;
+	case 0x010:
+		strcat(WindowsDescription, " Terminal");
+		break;
+	case 0x020:
+		strcat(WindowsDescription, " Small Business (Restricted)");
+		break;
+	case 0x040:
+		strcat(WindowsDescription, " EmbeddedNT");
+		break;
+	case 0x080:
+		strcat(WindowsDescription, " Data Center");
+		break;
+	case 0x100:
+		strcat(WindowsDescription, " Single User");
+		break;
+	case 0x200:
+		strcat(WindowsDescription, " Personal");
+		break;
+	case 0x400:
+		strcat(WindowsDescription, " Web Edition");
+		break;
+	case 0x800:
+		strcat(WindowsDescription, " Embedded (Restricted)");
+		break;
+	default:
+		break;
+	}
+}
+
+
+//Continue by appending the service pack information.
 if (ServicePackMajor) {
 	strcat(WindowsDescription, " Service Pack ");
 	char* lpServPack = new char[2];
@@ -184,6 +286,7 @@ if (ServicePackMajor) {
 //	delete lpServPack;
 }
 
+// Add the build number to the description.
 if (BuildNumber) {
 	char *lpBuild = new char[4];
 	itoa(*BuildNumber, lpBuild, 10);

@@ -1,0 +1,8 @@
+
+
+#define		SUCCESS					0x1
+#define		ERROR_UNEXPECTED_VALUE	0x10
+#define		ERROR_NULL_VALUE		0x11
+#define		ERROR_WINDOWS_API		0x20
+
+

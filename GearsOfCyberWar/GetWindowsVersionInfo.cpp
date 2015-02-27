@@ -119,11 +119,12 @@ char* GetWindowsVersionDesc(unsigned char* VersionMajor,
 							unsigned short* Suite,
 							unsigned char* ProductType,
 							unsigned char* ServerBuild) {
-char* WindowsDescription = new char[256];
-SecureZeroMemory(WindowsDescription, 256);
+unsigned char BufferSize = 128;
+char* WindowsDescription = new char[BufferSize];
+SecureZeroMemory(WindowsDescription, BufferSize);
 
 //We assume that at this point, we're on a Windows machine.
-strcpy(WindowsDescription, "Windows");
+strcpy_s(WindowsDescription, BufferSize, "Windows");
 
 //If nothing was requested, return.
 if (VersionMajor == NULL || VersionMinor == NULL) {
@@ -135,50 +136,50 @@ if (VersionMajor == NULL || VersionMinor == NULL) {
 if (*VersionMajor == 6) {
 	switch (*VersionMinor) {
 	case 4:
-		strcat(WindowsDescription, " 10");
+		strcat_s(WindowsDescription, BufferSize, " 10");
 		break;
 	case 3:
 		if (ProductType) {
 			if (*ProductType == 1) {
-				strcat(WindowsDescription, "  8.1");
+				strcat_s(WindowsDescription, BufferSize, "  8.1");
 			} else {
-				strcat(WindowsDescription, "  Server 2012 R2");
+				strcat_s(WindowsDescription, BufferSize, "  Server 2012 R2");
 			}
 		} else {
-			strcat(WindowsDescription, " 8.1 or Server 2012 R2");
+			strcat_s(WindowsDescription, BufferSize, " 8.1 or Server 2012 R2");
 		}
 		break;
 	case 2:
 		if (ProductType) {
 			if (*ProductType == 1) {
-				strcat(WindowsDescription, " 8");
+				strcat_s(WindowsDescription, BufferSize, " 8");
 			} else {
-				strcat(WindowsDescription, " Server 2012");
+				strcat_s(WindowsDescription, BufferSize, " Server 2012");
 			}
 		} else {
-			strcat(WindowsDescription, " 8 or Server 2012");
+			strcat_s(WindowsDescription, BufferSize, " 8 or Server 2012");
 		}
 		break;
 	case 1:
 		if (ProductType) {
 			if (*ProductType == 1) {
-				strcat(WindowsDescription, " 7");
+				strcat_s(WindowsDescription, BufferSize, " 7");
 			} else {
-				strcat(WindowsDescription, " Server 2008 R2");
+				strcat_s(WindowsDescription, BufferSize, " Server 2008 R2");
 			}
 		} else {
-			strcat(WindowsDescription, " 7 or Server 2008 R2");
+			strcat_s(WindowsDescription, BufferSize, " 7 or Server 2008 R2");
 		}
 		break;
 	case 0:
 		if (ProductType) {
 			if (*ProductType == 1) {
-				strcat(WindowsDescription, " Vista");
+				strcat_s(WindowsDescription, BufferSize, " Vista");
 			} else {
-				strcat(WindowsDescription, " Server 2008");
+				strcat_s(WindowsDescription, BufferSize, " Server 2008");
 			}
 		} else {
-			strcat(WindowsDescription, " Vista or Server 2008");
+			strcat_s(WindowsDescription, BufferSize, " Vista or Server 2008");
 		}
 		break;
 	default:
@@ -188,20 +189,20 @@ if (*VersionMajor == 6) {
 	switch (*VersionMinor) {
 	case 2:
 		if (*ServerBuild != 0) {
-			strcat(WindowsDescription, " Server 2003 R2");
+			strcat_s(WindowsDescription, BufferSize, " Server 2003 R2");
 		} else if (*ServerBuild == 0) {
-			strcat(WindowsDescription, " Server 2003");
+			strcat_s(WindowsDescription, BufferSize, " Server 2003");
 		} else if (*Suite & 0x00008000) {
-			strcat(WindowsDescription, " Home Server");
+			strcat_s(WindowsDescription, BufferSize, " Home Server");
 		} else {
-			strcat(WindowsDescription, " XP Professional (x64)");
+			strcat_s(WindowsDescription, BufferSize, " XP Professional (x64)");
 		}
 		break;
 	case 1:
-		strcat(WindowsDescription, " XP");
+		strcat_s(WindowsDescription, BufferSize, " XP");
 		break;
 	case 0:
-		strcat(WindowsDescription, " 2000");
+		strcat_s(WindowsDescription, BufferSize, " 2000");
 		break;
 	default:
 		break;
@@ -209,18 +210,18 @@ if (*VersionMajor == 6) {
 } else if (*VersionMajor == 4) {
 	switch (*VersionMinor) {
 	case 90:
-		strcat(WindowsDescription, " Millenium");
+		strcat_s(WindowsDescription, BufferSize, " Millenium");
 		break;
 	case 10:
-		strcat(WindowsDescription, " 98");
+		strcat_s(WindowsDescription, BufferSize, " 98");
 		break;
 	case 0:
-		strcat(WindowsDescription, " 95");
+		strcat_s(WindowsDescription, BufferSize, " 95");
 		break;
 	}
 } else if (*VersionMajor == 3) {
 	//Wow if we ever get here, we're at the zombie apocalypse...
-	strcat(WindowsDescription, " 3.1 or inferior.");
+	strcat_s(WindowsDescription, BufferSize, " 3.1 or inferior.");
 } else {
 	return WindowsDescription;
 }
@@ -230,40 +231,40 @@ if (*VersionMajor == 6) {
 if (Suite) {
 	switch (*Suite) {
 	case 0x001:
-		strcat(WindowsDescription, " Small Business");
+		strcat_s(WindowsDescription, BufferSize, " Small Business");
 		break;
 	case 0x002:
-		strcat(WindowsDescription, " Enterprise");
+		strcat_s(WindowsDescription, BufferSize, " Enterprise");
 		break;
 	case 0x004:
-		strcat(WindowsDescription, " BackOffice");
+		strcat_s(WindowsDescription, BufferSize, " BackOffice");
 		break;
 	case 0x008:
-		strcat(WindowsDescription, " Communications");
+		strcat_s(WindowsDescription, BufferSize, " Communications");
 		break;
 	case 0x010:
-		strcat(WindowsDescription, " Terminal");
+		strcat_s(WindowsDescription, BufferSize, " Terminal");
 		break;
 	case 0x020:
-		strcat(WindowsDescription, " Small Business (Restricted)");
+		strcat_s(WindowsDescription, BufferSize, " Small Business (Restricted)");
 		break;
 	case 0x040:
-		strcat(WindowsDescription, " EmbeddedNT");
+		strcat_s(WindowsDescription, BufferSize, " EmbeddedNT");
 		break;
 	case 0x080:
-		strcat(WindowsDescription, " Data Center");
+		strcat_s(WindowsDescription, BufferSize, " Data Center");
 		break;
 	case 0x100:
-		strcat(WindowsDescription, " Single User");
+		strcat_s(WindowsDescription, BufferSize, " Single User");
 		break;
 	case 0x200:
-		strcat(WindowsDescription, " Personal");
+		strcat_s(WindowsDescription, BufferSize, " Personal");
 		break;
 	case 0x400:
-		strcat(WindowsDescription, " Web Edition");
+		strcat_s(WindowsDescription, BufferSize, " Web Edition");
 		break;
 	case 0x800:
-		strcat(WindowsDescription, " Embedded (Restricted)");
+		strcat_s(WindowsDescription, BufferSize, " Embedded (Restricted)");
 		break;
 	default:
 		break;
@@ -273,14 +274,14 @@ if (Suite) {
 
 //Continue by appending the service pack information.
 if (ServicePackMajor) {
-	strcat(WindowsDescription, " Service Pack ");
+	strcat_s(WindowsDescription, BufferSize, " Service Pack ");
 	char* lpServPack = new char[2];
-	itoa(*ServicePackMajor, lpServPack, 10);
-	strcat(WindowsDescription, lpServPack);
+	_itoa_s(*ServicePackMajor, lpServPack, 2, 10);
+	strcat_s(WindowsDescription, BufferSize, lpServPack);
 	if (ServicePackMinor && *ServicePackMinor != 0) {
-		itoa(*ServicePackMinor, lpServPack, 10);
-		strcat(WindowsDescription, ".");
-		strcat(WindowsDescription, lpServPack);
+		_itoa_s(*ServicePackMinor, lpServPack, 2, 10);
+		strcat_s(WindowsDescription, BufferSize, ".");
+		strcat_s(WindowsDescription, BufferSize, lpServPack);
 	}
 	SecureZeroMemory(lpServPack, sizeof(lpServPack));
 //	delete lpServPack;
@@ -288,10 +289,10 @@ if (ServicePackMajor) {
 
 // Add the build number to the description.
 if (BuildNumber) {
-	char *lpBuild = new char[4];
-	itoa(*BuildNumber, lpBuild, 10);
-	strcat(WindowsDescription, " Build ");
-	strcat(WindowsDescription, lpBuild);
+	char *lpBuild = new char[5];
+	_itoa_s(*BuildNumber, lpBuild, 5, 10);
+	strcat_s(WindowsDescription, BufferSize, " Build ");
+	strcat_s(WindowsDescription, BufferSize, lpBuild);
 	SecureZeroMemory(lpBuild, sizeof(lpBuild));
 	//delete lpBuild;
 }

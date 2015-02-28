@@ -54,7 +54,6 @@ char* Base64Encode(const unsigned char* PlainData, unsigned int DataLength, cons
     return EncodedData;
 }
 
-//TODO: 2 last characters truncated.
 char* Base64Decode(const unsigned char* EncodedData, unsigned int EncodedDataLength, const char* Alphabet, const char PaddingChar) {
 	char* PlainData = 0;
 	unsigned int PlainDataLen = 0;
@@ -118,7 +117,7 @@ char* Base64Decode(const unsigned char* EncodedData, unsigned int EncodedDataLen
 	return PlainData;
 }
 
-int main(int argc, char* argv) {
+int Test(int argc, char* argv) {
     const char* TestBase64Encode = "Base64 Encoding Test";
     const char* TestBase64Decode = "QmFzZTY0IEVuY29kaW5nIFRlc3Q=";
 

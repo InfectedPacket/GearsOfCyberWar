@@ -5,6 +5,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetWindowsVersionInfo", "Ge
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XorCrypt", "..\XorCrypt\XorCrypt.vcxproj", "{C6A91A93-7D66-4CDB-BC82-F9143FDBB796}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base64", "Base64\Base64.vcxproj", "{137574C7-27D1-4BB9-B7B7-E9D2A1FB1851}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,6 +21,10 @@ Global
 		{C6A91A93-7D66-4CDB-BC82-F9143FDBB796}.Debug|Win32.Build.0 = Debug|Win32
 		{C6A91A93-7D66-4CDB-BC82-F9143FDBB796}.Release|Win32.ActiveCfg = Release|Win32
 		{C6A91A93-7D66-4CDB-BC82-F9143FDBB796}.Release|Win32.Build.0 = Release|Win32
+		{137574C7-27D1-4BB9-B7B7-E9D2A1FB1851}.Debug|Win32.ActiveCfg = Debug|Win32
+		{137574C7-27D1-4BB9-B7B7-E9D2A1FB1851}.Debug|Win32.Build.0 = Debug|Win32
+		{137574C7-27D1-4BB9-B7B7-E9D2A1FB1851}.Release|Win32.ActiveCfg = Release|Win32
+		{137574C7-27D1-4BB9-B7B7-E9D2A1FB1851}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

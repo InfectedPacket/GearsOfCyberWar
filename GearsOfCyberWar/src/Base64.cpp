@@ -1,25 +1,55 @@
-
+// <copyright file="Base64.cpp" company="Jonathan Racicot">
+//    C++ Base64 Encoder/Decoder.
+//    Copyright (C) 2015 Jonathan Racicot
+//
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+//
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+//
+//   You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+// </copyright>
+// <author>Jonathan Racicot</author>
+// <email>infectedpacket@gmail.com</email>
+// <date>2015-03-01</date>
+// <summary>C++ implementation of the Base64 encoder/decoder function.</summary>
 #include <stdio.h>
 #include <Windows.h>
 #include "Base64.h"
 
+/**
+ Standard alphabet for Base64 encoding.
+*/
 const static char* RegularAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/" ;
 
 /**
-<summary></summary>
-<param name="PlainData"></param>
-<param name="DataLength"></param>
-<param name="Alphabet"></param>
-<param name="PaddingChar"></param>
-<returns></returns>
+<summary>Encodes a given string using the standard Base64 encoding algorithm
+using the specified alphabet.</summary>
+<param name="PlainData">The array of bytes to encode.</param>
+<param name="DataLength">The number of bytes contained in the array.</param>
+<param name="Alphabet">The alphabet to used in conjunction with the base64
+algorithm. </param>
+<param name="PaddingChar">The padding character to used. The standard character
+is the equal sign (=).</param>
+<param name="EncodedDataLength">The length of the resulting byte array of encoded
+data.</param>
+<returns>Returns an array of encoded bytes.</returns>
 */
-char* Base64Encode(const unsigned char* PlainData, unsigned int DataLength, const char* Alphabet, unsigned char PaddingChar) {
+char* Base64Encode(const unsigned char* PlainData, unsigned int DataLength, 
+	const char* Alphabet, unsigned char PaddingChar, 
+	unsigned int* EncodedDataLength) {
     
     int ByteCounter = 0;
     int ByteIndex = 0;
     int PaddingLen = (((DataLength%3)&1)<<1)+(((DataLength%3)&2)>>1);
-    unsigned int EncodedDataLength = 4*(DataLength+PaddingLen)/3;
-    char* EncodedData = new char[EncodedDataLength+1];
+    *EncodedDataLength = 4*(DataLength+PaddingLen)/3;
+    char* EncodedData = new char[*EncodedDataLength+1];
 
     if (!EncodedData) {
         return 0;
@@ -35,7 +65,7 @@ char* Base64Encode(const unsigned char* PlainData, unsigned int DataLength, cons
         EncodedData[ByteCounter++] = Alphabet[((0x03&TempByteArray3[0])<<4) + (TempByteArray3[1] >> 4)];
         EncodedData[ByteCounter++] = Alphabet[((0x0F&TempByteArray3[1])<<2) + (TempByteArray3[2] >> 6)];
         EncodedData[ByteCounter++] = Alphabet[(0x3F&TempByteArray3[2])];
-    }
+    } //end for
 
     if (PaddingLen == 2)
     {
@@ -48,7 +78,7 @@ char* Base64Encode(const unsigned char* PlainData, unsigned int DataLength, cons
         EncodedData[ByteCounter++] = Alphabet[((0x03&PlainData[ByteIndex])<<4) + (PlainData[ByteIndex+1] >> 4)];
         EncodedData[ByteCounter++] = Alphabet[(0x0F&PlainData[ByteIndex+1]) << 2];
         EncodedData[ByteCounter++] = PaddingChar;
-    }
+    } //end if
     
     EncodedData[ByteCounter] = 0;
     return EncodedData;
@@ -117,22 +147,23 @@ char* Base64Decode(const unsigned char* EncodedData, unsigned int EncodedDataLen
 	return PlainData;
 }
 
-int Test(int argc, char* argv) {
+int TestBase64() {
     const char* TestBase64Encode = "Base64 Encoding Test";
     const char* TestBase64Decode = "QmFzZTY0IEVuY29kaW5nIFRlc3Q=";
-
+	unsigned int EncodedDataLength = 0;
     printf("[*] Plain string: ");
     printf(TestBase64Encode);
     printf("\n");
-    char* Base64EncodeResult = Base64Encode((const unsigned char*)TestBase64Encode, strlen(TestBase64Encode), RegularAlphabet, '=');
+    char* Base64EncodeResult = Base64Encode((const unsigned char*)TestBase64Encode, 
+		strlen(TestBase64Encode), RegularAlphabet, '=', &EncodedDataLength);
     printf("[*] Encoded string :");
     printf(Base64EncodeResult);
 	printf("\n");
-	char * Base64DecodeResult = Base64Decode((const unsigned char*)Base64EncodeResult, strlen(Base64EncodeResult), RegularAlphabet, '=');
+	char * Base64DecodeResult = Base64Decode((const unsigned char*)Base64EncodeResult, EncodedDataLength, RegularAlphabet, '=');
     printf("[*] Reverted plain string :");
     printf(Base64DecodeResult);
 	printf("\n");
 
-    return 0;
+    return strcmp(TestBase64Encode, Base64DecodeResult);
 }
 

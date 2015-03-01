@@ -17,7 +17,7 @@ unsigned char* XorCrypt(unsigned char* CipherData, unsigned int DataLength, char
 	return 0;
 }
 
-int Test(int argc, char* argv) {
+int TestXorCrypt(int argc, char* argv) {
 	unsigned char TestData[] = {0x0, 'A', 'B', 'C', 'D', '1', 0xFA};
 	unsigned int TestDataLen = 7;
 	char Key[] = {0x41};

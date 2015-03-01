@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LinkIncremental>true</LinkIncremental>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -80,6 +80,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base64.cpp" />
+    <ClCompile Include="src\GearsOfCyberWar.cpp" />
+    <ClCompile Include="src\GetProcessList.cpp" />
     <ClCompile Include="src\GetWindowsVersionInfo.cpp" />
     <ClCompile Include="src\XorCrypt.cpp" />
   </ItemGroup>

@@ -299,7 +299,7 @@ if (BuildNumber) {
 return WindowsDescription;
 } // end function
 
-int Test(int argc, char* argv) {
+int TestWinVersion(int argc, char* argv) {
 	unsigned char* VersionMajor = new unsigned char[1]; 
 	unsigned char* VersionMinor = new unsigned char[1]; 
 	unsigned short* BuildNumber = new unsigned short[1];

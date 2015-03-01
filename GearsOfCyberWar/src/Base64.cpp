@@ -84,9 +84,11 @@ char* Base64Encode(const unsigned char* PlainData, unsigned int DataLength,
     return EncodedData;
 }
 
-char* Base64Decode(const unsigned char* EncodedData, unsigned int EncodedDataLength, const char* Alphabet, const char PaddingChar) {
+char* Base64Decode(const unsigned char* EncodedData, 
+	unsigned int EncodedDataLength, const char* Alphabet, 
+	const char PaddingChar, unsigned int* PlainDataLength) {
 	char* PlainData = 0;
-	unsigned int PlainDataLen = 0;
+	*PlainDataLength = 0;
 	int i = 0;
 	int j = 0;
 	int ByteCounter = 0;
@@ -96,8 +98,8 @@ char* Base64Decode(const unsigned char* EncodedData, unsigned int EncodedDataLen
 		unsigned int PaddingLen = 0;
 		if (EncodedData[EncodedDataLength-1] == PaddingChar) PaddingLen++;
 		if (EncodedData[EncodedDataLength-2] == PaddingChar) PaddingLen++;
-		PlainDataLen = 3*EncodedDataLength/4 - PaddingLen;
-		PlainData = new char[PlainDataLen+1];
+		*PlainDataLength = 3*EncodedDataLength/4 - PaddingLen;
+		PlainData = new char[*PlainDataLength+1];
 		if (!PlainData) {
 			return 0;
 		}
@@ -143,13 +145,14 @@ char* Base64Decode(const unsigned char* EncodedData, unsigned int EncodedDataLen
 		  }
 	}
 
-	PlainData[PlainDataLen] = 0;
+	PlainData[ByteCounter] = 0;
 	return PlainData;
 }
 
 int TestBase64() {
     const char* TestBase64Encode = "Base64 Encoding Test";
     const char* TestBase64Decode = "QmFzZTY0IEVuY29kaW5nIFRlc3Q=";
+	unsigned int PlainDataLength = 0;
 	unsigned int EncodedDataLength = 0;
     printf("[*] Plain string: ");
     printf(TestBase64Encode);
@@ -159,7 +162,8 @@ int TestBase64() {
     printf("[*] Encoded string :");
     printf(Base64EncodeResult);
 	printf("\n");
-	char * Base64DecodeResult = Base64Decode((const unsigned char*)Base64EncodeResult, EncodedDataLength, RegularAlphabet, '=');
+	char * Base64DecodeResult = Base64Decode((const unsigned char*)Base64EncodeResult, 
+		EncodedDataLength, RegularAlphabet, '=', &PlainDataLength);
     printf("[*] Reverted plain string :");
     printf(Base64DecodeResult);
 	printf("\n");

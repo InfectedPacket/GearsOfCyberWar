@@ -19,14 +19,41 @@
 // <email>infectedpacket@gmail.com</email>
 // <date>2015-03-01</date>
 // <summary></summary>
+#include <stdio.h>
+#ifndef _WINDOWS_H_
+	#include <windows.h>
+#endif
 
-#include <windows.h>
-#include <tlhelp32.h>
+#ifndef _TLHELP32_H_
+	#include <tlhelp32.h>
+#endif
+
 #include <tchar.h>
 
-typedef void (*DoProcessAction)(PROCESSENTRY32);
+#include "GetProcessList.h"
 
-BOOL GetProcessList( DoProcessAction )
+/**
+
+<see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684839%28v=vs.85%29.aspx">PROCESSENTRY32 structure</see>
+*/
+void PrintProcessInfo(PROCESSENTRY32 ProcessEntry) {
+		//pe32.szExeFile			Process Name
+		//pe32.th32ProcessID		Process ID
+		//pe32.cntThreads			Thread count
+		//pe32.th32ParentProcessID	Parent process ID
+		//pe32.pcPriClassBase		Priority base
+	wprintf(L"%d\t%s\t\t%d\t%d\n", ProcessEntry.th32ProcessID, 
+							ProcessEntry.szExeFile,
+							ProcessEntry.cntThreads,
+							ProcessEntry.th32ParentProcessID);
+}
+
+/**
+<summary></summary>
+<param name="DoProcessAction"></param>
+<returns></returns>
+*/
+BOOL GetProcessList( ProcessAction DoProcessAction )
 {
   HANDLE hProcessSnap;
   HANDLE hProcess;
@@ -76,4 +103,10 @@ BOOL GetProcessList( DoProcessAction )
 
   CloseHandle( hProcessSnap );
   return TRUE;
+}
+
+int TestProcessList() {
+	printf("[*] Getting list of processess...\n");
+	BOOL result = GetProcessList(&PrintProcessInfo);
+	return 0;
 }

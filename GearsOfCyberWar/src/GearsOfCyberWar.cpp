@@ -2,6 +2,8 @@
 #include <stdio.h>
 
 #include "Base64.h"
+#include "XorCrypt.h"
+#include "GetProcessList.h"
 
 int main (int argc, char* argv) {
 	printf("GearsOfCyberWar Copyright (C) 2015 Jonathan Racicot.\n");
@@ -18,7 +20,8 @@ int main (int argc, char* argv) {
 	} else {
 		printf("[-] Result: [FAIL]\n");
 	}
-
+	printf("[*] Testing GetProcessList function...\n");
+	TestProcessList();
 
 	return 0;
 }

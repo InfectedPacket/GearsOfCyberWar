@@ -75,6 +75,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Base64.h" />
+    <ClInclude Include="src\GetProcessList.h" />
     <ClInclude Include="src\GetWindowsVersionInfo.h" />
     <ClInclude Include="src\XorCrypt.h" />
   </ItemGroup>

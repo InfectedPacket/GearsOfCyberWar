@@ -4,6 +4,7 @@
 #include "Base64.h"
 #include "XorCrypt.h"
 #include "GetProcessList.h"
+#include "TakeScreenshot.h"
 
 int main (int argc, char* argv) {
 	printf("GearsOfCyberWar Copyright (C) 2015 Jonathan Racicot.\n");
@@ -22,6 +23,8 @@ int main (int argc, char* argv) {
 	}
 	printf("[*] Testing GetProcessList function...\n");
 	TestProcessList();
+	printf("[*] TEsting TakeScreenshot function...\n");
+	TestScreenshot();
 
 	return 0;
 }

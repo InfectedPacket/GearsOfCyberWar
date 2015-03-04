@@ -33,8 +33,12 @@
 #include "GetProcessList.h"
 
 /**
-
-<see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684839%28v=vs.85%29.aspx">PROCESSENTRY32 structure</see>
+<summary>Callback function used for printing information about the given
+process to the console.</summary>
+<param name="ProcessEntry">The process structure with the information to 
+print to the console.</param>
+<see cref="https://msdn.microsoft.com/en-us/library/windows/desktop/ms684839%28v=vs.85%29.aspx">
+PROCESSENTRY32 structure</see>
 */
 void PrintProcessInfo(PROCESSENTRY32 ProcessEntry) {
 		//pe32.szExeFile			Process Name
@@ -51,7 +55,8 @@ void PrintProcessInfo(PROCESSENTRY32 ProcessEntry) {
 /**
 <summary></summary>
 <param name="DoProcessAction"></param>
-<returns></returns>
+<returns>Returns TRUE if the function completed successfully, returns
+FALSE otherwise.</returns>
 */
 BOOL GetProcessList( ProcessAction DoProcessAction )
 {
@@ -64,7 +69,6 @@ BOOL GetProcessList( ProcessAction DoProcessAction )
   hProcessSnap = CreateToolhelp32Snapshot( TH32CS_SNAPPROCESS, 0 );
   if( hProcessSnap == INVALID_HANDLE_VALUE )
   {
-    //printError( TEXT("CreateToolhelp32Snapshot (of processes)") );
     return( FALSE );
   }
 
@@ -75,7 +79,6 @@ BOOL GetProcessList( ProcessAction DoProcessAction )
   // and exit if unsuccessful
   if( !Process32First( hProcessSnap, &pe32 ) )
   {
-   // printError( TEXT("Process32First") ); // show cause of failure
     CloseHandle( hProcessSnap );          // clean the snapshot object
     return( FALSE );
   }
@@ -89,15 +92,9 @@ BOOL GetProcessList( ProcessAction DoProcessAction )
 		} else {
 		  dwPriorityClass = GetPriorityClass( hProcess );
 		  if( !dwPriorityClass ) {}
-			//printError( TEXT("GetPriorityClass") );
 		  CloseHandle( hProcess );
 		}
 
-		//pe32.szExeFile			Process Name
-		//pe32.th32ProcessID		Process ID
-		//pe32.cntThreads			Thread count
-		//pe32.th32ParentProcessID	Parent process ID
-		//pe32.pcPriClassBase		Priority base
 		DoProcessAction(pe32);
   } while( Process32Next( hProcessSnap, &pe32 ) );
 

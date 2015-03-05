@@ -95,12 +95,13 @@ Tag downloaded from http://legacy.sixteencolors.net/pack/cphart4/CXCINFEC.NFO
 
 /**
 <summary>
-<para>Simple implementation of the XOR cipher. The XOR cipher is an additive cipher
+<para>Simple implementation of a null-preserving XOR cipher. The XOR cipher is an additive cipher
 that operates according to the principles:</para>
 A (+) 0 = A
 A (+) A = 0
 <para>This implementation uses the characters of the given byte array and XOR each byte of the given
-with the corresponding byte of the given key.</para>
+with the corresponding byte of the given key. If the byte to encode is null (0x0), the byte is
+ignored.</para>
 </summary>
 <param name="CipherData">An array of bytes to XOR. Must contain at least one item.</param>
 <param name="DataLength">The number of bytes passed in CipherData.</param>
@@ -117,7 +118,9 @@ unsigned char* XorCrypt(unsigned char* CipherData, unsigned int DataLength,
 		unsigned char* PlainData = new unsigned char[DataLength];
 		unsigned int idx = 0;
 		for (idx = 0; idx < DataLength; idx++) {
-			PlainData[idx] = (CipherData[idx] ^ Key[idx%KeyLength]);
+			if (PlainData[idx] != 0x0) { //Null-preserving 
+				PlainData[idx] = (CipherData[idx] ^ Key[idx%KeyLength]);
+			}
 		}
 
 		return PlainData;

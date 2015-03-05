@@ -77,6 +77,7 @@
     <ClInclude Include="src\Base64.h" />
     <ClInclude Include="src\GetProcessList.h" />
     <ClInclude Include="src\GetWindowsVersionInfo.h" />
+    <ClInclude Include="src\SendHttpRequest.h" />
     <ClInclude Include="src\TakeScreenshot.h" />
     <ClInclude Include="src\XorCrypt.h" />
   </ItemGroup>
@@ -85,6 +86,7 @@
     <ClCompile Include="src\GearsOfCyberWar.cpp" />
     <ClCompile Include="src\GetProcessList.cpp" />
     <ClCompile Include="src\GetWindowsVersionInfo.cpp" />
+    <ClCompile Include="src\SendHttpRequest.cpp" />
     <ClCompile Include="src\TakeScreenshot.cpp" />
     <ClCompile Include="src\XorCrypt.cpp" />
   </ItemGroup>

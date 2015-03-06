@@ -75,6 +75,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Base64.h" />
+    <ClInclude Include="src\DownloadFileFromWeb.h" />
     <ClInclude Include="src\GetProcessList.h" />
     <ClInclude Include="src\GetWindowsVersionInfo.h" />
     <ClInclude Include="src\SendHttpRequest.h" />
@@ -83,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Base64.cpp" />
+    <ClCompile Include="src\DownloadFileFromWeb.cpp" />
     <ClCompile Include="src\GearsOfCyberWar.cpp" />
     <ClCompile Include="src\GetProcessList.cpp" />
     <ClCompile Include="src\GetWindowsVersionInfo.cpp" />

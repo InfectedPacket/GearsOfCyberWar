@@ -91,6 +91,7 @@
 #include "GetProcessList.h"
 #include "TakeScreenshot.h"
 #include "SendHttpRequest.h"
+#include "DownloadFileFromWeb.h"
 
 int main (int argc, char* argv) {
 	printf("GearsOfCyberWar Copyright (C) 2015 Jonathan Racicot.\n");
@@ -108,11 +109,14 @@ int main (int argc, char* argv) {
 		printf("[-] Result: [FAIL]\n");
 	}
 	printf("[*] Testing GetProcessList function...\n");
-	TestProcessList();
+	result = TestProcessList();
 	printf("[*] Testing TakeScreenshot function...\n");
 	TestScreenshot();
 	printf("[*] Testing Http Connectivity...\n");
 	TestHttpRequest();
-
+	printf("[*] Testing Http Connectivity...\n");
+	TestHttpRequest();
+	printf("[*] Testing DownloadFileViaUrlmon...\n");
+	TestDownloadFile();
 	return 0;
 }

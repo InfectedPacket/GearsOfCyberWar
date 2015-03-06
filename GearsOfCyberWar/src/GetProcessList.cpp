@@ -1,5 +1,49 @@
-// <copyright file="GetProcessList.cpp" company="Jonathan Racicot">
-//    <one line to give the program's name and a brief idea of what it does.>
+﻿/**
+█▀▀▀▀█▀▀▀▀▀██▀▀▀▀██▀▀▀▀▀▀ ▀▀▀▀▀▀▀▀▀▀▀▓▒▀▀▀▀▀▀▀▀▀▀█▓▀ ▀▀▀██▀▀▀▀▀▀▀▀▀▓▓▀▀▀▀▀▀▀▀▀▌
+▌▄██▌ ▄▓██▄ ▀▄█▓▄▐ ▄▓█▓▓▀█ ▄▓██▀▓██▓▄ ▌▄█▓█▀███▓▄ ▌▄█▓█ ▀ ▄▓██▀▓██▓▄ ▄█▓█▀███▄■
+▌▀▓█▓▐▓██▓▓█ ▐▓█▓▌▐▓███▌■ ▒▓██▌  ▓██▓▌▐▓▒█▌▄ ▓██▓▌▐▓▒█▌▐ ▒▓██▌  ▓██▓▌▓▒█▌  ▓█▓▌
+▐▓▄▄▌░▓▓█▓▐▓▌ █▓▓▌░▓▓█▓▄▄ ▓▓██▓▄▄▓█▓▓▌░▓█▓ █ ▓█▓▓▌░▓█▓ ▒ ▓▓██▓▄▄▓█▓▓▌▓█▓ ░ ▓█▓▓
+▐▓▓█▌▓▓▓█▌ █▓▐██▓▌▐▓▒▓▌ ▄ ▐░▓█▌▄  ▀▀▀ ▐▓▓▓ ▐▌ ▀▀▀ ▐▓▓▓▄▄ ▐░▓█▌▄  ▀▀▀ ▓▓▓ ░ ██▓▓
+▐▓▓▓█▐▓▒██  ██▓▓▓▌▐▓▓██ █▌▐▓▓▒▌▐ ███░▌▐▓▓▒▌▐ ███░▌▐▓▓▒▌  ▐▓▓▒▌▀ ███░▌▓▓▒▌  ███░
+ ▒▓▓█▌▒▓▓█▌ ▐▓█▒▒  ▒▓██▌▐█ ▒▓▓█ ▐█▓▒▒  ▒▒▓█ ▐█▓▒▒  ▒▒▓█ ▓▌▒▓▓█ ▐█▓▒▒ ▒▒▓█ ▐█▓▒▌
+▌ ▒▒░▀ ▓▒▓▀ ▀░▒▓ ▐▌ ▓▓▓▀ █  █▒▓▀▀░█▓ ▄▌ ▒▒▓▀▀░█▓ ▄▌ ▒▒▓▀▀  █▒▓▀▀░█▓   ▒▒▓▀▀░█▀
+█▄ ▀ ▄▄ ▀▄▄▀■ ▀ ▀▓█▄ ▀ ▄█▓█▄ ▀ ▓▄▄▄▄▄█▀ ▄▀ ▄▄▄▄▄▄█▓▄ ▀ ▄▄█▓▄▀     ▄▓▄█▄▀  ▄▄▄█▌
+▐████▓█▀ ▄▄█▓▓███▄▄ ▀▓▓████████████▓▀▄██▄▀▓██████▓▓██▓▓▓█▀▀▄▄███▓▓▄▄▄▀▀█▓████▌
+░░▌▓▓▌ ▄▒▒▓▓▓▀▀█████▄ ▀▒░▄ ███▓█▀▀ ▄▓█▌▐▒█▄▀▀▀█▓█████▓▓▀ ▄█████▀▀▓▓▓▒▒▄ ▐▓▓▐░░
+▐▒▒█▌ ▐░▓▓██▌   ▀▀█▓█▓▄▄▄ ▀█▀▀ ▄▒▓██▀▀  ▀▀██▓▓▄ ▀▀█▀ ▄▄▄▓█▓█▀ ▀  ▐██▓▓░▌ ▐█▒▒▌
+ ▀▓█  ░▒▓███   ▄█▀▀▀▀▀▀▀█▓ ▄▒▓██▀    ▄▓▄     ▀▓██▓▄ ▓█▀▀▀▀▀▀▀▄█   ███▓▒░  █▓▀
+ ▄█▀  ▀▒▓██▓▌ █▓  ▄▄█▓▓▄▄▄░▒▀▀   ▄▄ ▓░▒▓▓ ▄▄    ▀▀█▓▄▄▄▓▓█▄▄ ▓ █ ▐▓██▓▒▀  ▀█▄
+▐▓▌     ▀▓█▀▀   ▄▓▓▓█▀  ▄▀▀  ▄▄▀▀    ▀▀▀    ▀▀▄▄   ▀▀▄  ▀█▓▓▓▄▄  ▀▀█▓▀     ▐▓▌
+██         ▄▄▒█▐▒██▀   ▐▌  ■▀   ▄▄░▒▒▓████▓▄▄   ▀■   ▐▌   ▀██▒▌█▒▄▄         ██
+▐▒▌      ▄▓▓▓█▒▒▒▓▌     ▀▄   ▄▓▒▒▒███████████▒▓▓▄   ▄▀     ▐▓▒▒▒█▓▓▓▄      ▐▒▌
+ ▓▓▌    ▐▒██▀ ▐▒█▀       ▄▄▓▒▒▒▒▓███████████████▓▓▓▄        ▀█▒▌ ▀██▒▌    ▐▓▓
+  ▀█    ▒▒▓▌  ▒▓▌     ▄▓▒▒▒▒█░█▓██████████████████▓▓▓▓▄      ▐▓▒  ▐▓▒▒    █▀
+ ▄█▀▀  ▐▒█▀   ▐▓▓    ▓░░▓▒▒▓▓▓████████████████████▓▓▓▓▒▓     ▓▓▌   ▀█▒▌  ▀▀█▄
+▐▓▌    ▒▓▌   ▄▄▒█▌▄ ▐░▒▒▓▓▓▀▀   ▀█▓█████████████▓▀▀█▓▓▓▓▌  ▄▐█▒▄▄   ▐▓▒    ▐▓▌
+██     ▐▓▓ ▄▓▓▓█▒▓▌ ░▒░░▒▀        ▓▓█████████▓▀     ▀░▓▒▓▌ ▐▓▒█▓▓▓▄ ▓▓▌     ██
+▐▒▌     ▒█▐▒██▀  ▒▓ ▐░░▒█  ▓  ▀   ▐▓████████▓▌  ▀  █ ▐▓▓▓  ▓▒  ▀██▒▌█▒     ▐▒▌
+ ▓▓▌     ▒▒▒▓▌    ▀▒ ▀░▒▓▒▄ ▀▄▄█   █████████▓ ▐▌ ▄▀ ▄▒▓▒▌ ▒▀    ▐▓▒▒▒     ▐▓▓
+  ▀█     ▐▒█▀▄▄        ▀▀█▓█▄▄   ▄█▒█▓▓▓▀▓████▄▀▀ ▄█▓█▒▀       ▄▄▀█▒▌     █▀
+ ▄█▀▀    ▒▓▌▒▓▓▓▄    ▄░▒▓▄▄▀▓█▓████▓▀▀    ▓███▓█████▀▄▄▄     ▄▓▓▓▒▐▓▒    ▀▀█▄
+▐▓▌      ▐▓▓ ▀██▒▌  ▐░▒▒▒▓██▄███▓▀         ▀▓██▓██▀▄█▓▒▓▓▄  ▐▒██▀ ▓▓▌      ▐▓▌
+██      ▒█▒█▌ ▐▓▒▒  ░░▒▒█▓▓▓███▓▀           ▀▓████▓▓█▓█▓▓█  ▒▒▓▌ ▐█▒█▒      ██
+▐▒▌    ▐▓▓ ▒▓▌ ▀█▒▌ ▒░▒░▒░▓▓██▓▄     ▄▄▄▓▄   ▄█▒▒█▒▒▓▓▒▓▓▓▌▐▒█▀ ▐▓▒ ▓▓▌    ▐▒▌
+ ▓▓▌   ▒▓▌  ▒▓  ▐▓▒  ▀░░▒▒▒█████▓▄ ▄▓█████████▓██▒▒▒▒▓▓▓▒▓ ▒▓▌  ▓▒  ▐▓▒   ▐▓▓
+  ▀█   ▐▒█▄  ▀▒ ▓▓▌    ▀▒░▒▓███▀▀▀▀▓█▀▀▀▀▀█▀▀▀▀▓▓█▓▒▓▓▒░▀  ▐▓▓ ▒▀  ▄█▒▌   █▀
+ ▄█▀▀   ▒▒▓▌   ▐▄▒        ▀▀ ▄▓▓ █▄▄ ▄▀▀▀▄▄▀▄▀▀▀▄ ▀▀▀▀      ▒▄▌   ▐▓▒▒   ▀▀█▄
+▐▓▌     ▐▒██▄ ▐▒▓   ▄▄▒█▌▄  ▐▒▒▌▀▐▌▀█▌ ▀▓ ▐█▌▀▀▌▒▌  ▄▐█▒▄▄   ▓▒▌ ▄██▒▌     ▐▓▌
+██ cXc[CPH]▓▓█▒▓▌ ▄▓▓▓█▒▓▌   ▒▒▒██▄ ▄▄▀  ▄▄█▓▓█▓▒   ▐▓▒█▓▓▓ ▄▐▓▒█▓▓▓▀       ██
+▐▒▌        ▀▀▒█▌▀▐▒██▀ ▐▒▓    ▀▒▒▒████████▓█▓▄▀▀    ▓▒▌ ▀██▐▒▀▐█▒▀▀        ▐▒▌
+ ▓▓▌        ▐▓▓ ▒▒▒▓▌█▒▌▐▀▒      ▀░▒▒▓▓▓█▓▀▀       ▒▀▌▐▒█▐▓▒▒▒ ▓▓▌        ▐▓▓
+ ▄▀█         ▒▄▌▐▒█▀▓▒▄▒ ▓▓▌        ▀▀▀▀          ▐▓▓ ▒▄▒▓▀▒█▌▐▄▒         █▀▄
+▐▓▌ ▀         ▓▒▌ ▄██▒▌                                ▐▒██ ▄▐▒▓         ▀ ▐▓▌
+██            ▐▓▒█▓▓▓▀                                  ▀▓▓█▓▒▓▌            ██
+▐▒▌    ▄▄▄▓█▀■▀▐█▒▀▀                                      ▀▒▀█▌▀■▀█▓▄▄▄    ▐▒▌
+ ▓▄▄███▓▀▀                                                          ▀▀█▓██▄▄▓
+▄█▓▀▀                                                                    ▀▀▓█▄
+█▓                                                                          ▓█
+▓▒                                                                          ▒▓
+▓                                                                            ▓
 //    Copyright (C) 2015 Jonathan Racicot
 //
 //    This program is free software: you can redistribute it and/or modify
@@ -19,6 +63,27 @@
 // <email>infectedpacket@gmail.com</email>
 // <date>2015-03-01</date>
 // <summary></summary>
+▓                                                                            ▓
+▓▌                                                                          ▐▓
+▓█▄▄                                                                      ▄▄█▓
+▓▐▓▓█▄▄                                                                ▄▄█▓▓▌▓
+▓ ▀█▓██▄▄▄▄   ▄▄██▄▄▄                                    ▄▄▄██▄▄   ▄▄▄▄██▓█▀ ▓
+▓  ▀█▓█▀████▄█▀▀▀▀▄▄▄▀▀▄                              ▄▀▀▄▄▄▀▀▀▀█▄████▀█▓█▀  ▓
+▓  ▄█▓█▄████▀█▄▄▄▄▀▀▀▄▄▀                              ▀▄▄▀▀▀▄▄▄▄█▀████▄█▓█▄  ▓
+▓ ▄█▓██▀▀▀▀   ▀▀██▀▀▀                                    ▀▀▀██▀▀   ▀▀▀▀██▓█▄ ▓
+▓▐▓▓█▀▀                                                                ▀▀█▓▓▌▓
+▓█▀▀      ▀▀▓▓███▀▀                                        ▀▀███▓▓▀▀      ▀▀█▓
+       ▄▒▒▓▓▓▀▀█████▄                                    ▄█████▀▀▓▓▓▒▒▄
+      ░▒▓█▄▄▓▓███▄▄▀▀▀▀▀█▓ ▄▒▓██▀            ▀▓██▓▄ ▓█▀▀▀▀▀▄▄███▓▓▄▄█▓▒░
+ ▄█▀  ▀▄▒▒▓▓▓▀▀█████▄▓▓▄▄▄░▒▀▀                  ▀▀█▓▄▄▄▓▓▄█████▀▀▓▓▓▒▒▄▀  ▀█▄
+       ▀▒▒▓▓▓▄▄█████▀                                    ▀█████▄▄▓▓▓▒▒▀
+       ▀▒▒▀▀▓▓███▀▀█▀                                    ▀█▀▀███▓▓▀▀▒▒▀
+          ▀▀▓▓███▀▀                                        ▀████▓▓▀▀
+              ██ ■▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄■ █▓
+              ▀█▓▄ NFO HEADER & LAYOUT BY CoaXCable/CoolPHay▄██▓
+                ▀▀▀████████████████████████████████████████▓▀▀▀
+                     ▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀
+*/
 #include <stdio.h>
 #ifndef _WINDOWS_H_
 	#include <windows.h>
@@ -41,11 +106,11 @@ print to the console.</param>
 PROCESSENTRY32 structure</see>
 */
 void PrintProcessInfo(PROCESSENTRY32 ProcessEntry) {
-		//pe32.szExeFile			Process Name
-		//pe32.th32ProcessID		Process ID
-		//pe32.cntThreads			Thread count
-		//pe32.th32ParentProcessID	Parent process ID
-		//pe32.pcPriClassBase		Priority base
+	//pe32.szExeFile			Process Name
+	//pe32.th32ProcessID		Process ID
+	//pe32.cntThreads			Thread count
+	//pe32.th32ParentProcessID	Parent process ID
+	//pe32.pcPriClassBase		Priority base
 	wprintf(L"%d\t%s\t\t%d\t%d\n", ProcessEntry.th32ProcessID, 
 							ProcessEntry.szExeFile,
 							ProcessEntry.cntThreads,
@@ -53,10 +118,13 @@ void PrintProcessInfo(PROCESSENTRY32 ProcessEntry) {
 }
 
 /**
-<summary></summary>
+<summary>Iterate through the list of processes currently running and for each process,
+call the <i>ProcessAction</i> function given as parameter.</summary>
 <param name="DoProcessAction"></param>
 <returns>Returns TRUE if the function completed successfully, returns
 FALSE otherwise.</returns>
+<see cref="ProcessAction">ProcessAction</see>
+<seealso cref="PrintProcessInfo">PrintProcessInfo function</seealso>
 */
 BOOL GetProcessList( ProcessAction DoProcessAction )
 {
@@ -83,13 +151,12 @@ BOOL GetProcessList( ProcessAction DoProcessAction )
     return( FALSE );
   }
 
+  //Start iterating through the processes
   do
   {
 	    dwPriorityClass = 0;
 		hProcess = OpenProcess( PROCESS_ALL_ACCESS, FALSE, pe32.th32ProcessID );
-		if( hProcess == NULL ) {
-		 // printError( TEXT("OpenProcess") );
-		} else {
+		if( hProcess != NULL ) {
 		  dwPriorityClass = GetPriorityClass( hProcess );
 		  if( !dwPriorityClass ) {}
 		  CloseHandle( hProcess );

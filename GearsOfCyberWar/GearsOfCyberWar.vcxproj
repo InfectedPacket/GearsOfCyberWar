@@ -78,6 +78,7 @@
     <ClInclude Include="src\DownloadFileFromWeb.h" />
     <ClInclude Include="src\GetProcessList.h" />
     <ClInclude Include="src\GetWindowsVersionInfo.h" />
+    <ClInclude Include="src\Mutex.h" />
     <ClInclude Include="src\RandomGenerator.h" />
     <ClInclude Include="src\SendHttpRequest.h" />
     <ClInclude Include="src\TakeScreenshot.h" />
@@ -89,6 +90,7 @@
     <ClCompile Include="src\GearsOfCyberWar.cpp" />
     <ClCompile Include="src\GetProcessList.cpp" />
     <ClCompile Include="src\GetWindowsVersionInfo.cpp" />
+    <ClCompile Include="src\Mutex.cpp" />
     <ClCompile Include="src\RandomGenerator.cpp" />
     <ClCompile Include="src\SendHttpRequest.cpp" />
     <ClCompile Include="src\TakeScreenshot.cpp" />

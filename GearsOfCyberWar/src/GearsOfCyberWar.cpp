@@ -93,6 +93,7 @@
 #include "SendHttpRequest.h"
 #include "DownloadFileFromWeb.h"
 #include "RandomGenerator.h"
+#include "Mutex.h"
 
 int main (int argc, char* argv) {
 	printf("GearsOfCyberWar Copyright (C) 2015 Jonathan Racicot.\n");
@@ -119,5 +120,7 @@ int main (int argc, char* argv) {
 	TestDownloadFile();
 	printf("[*] Testing Random Generators...\n");
 	TestRandomGenerators();
+	printf("[*] Testing Mutexes...\n");
+	TestMutex();
 	return 0;
 }

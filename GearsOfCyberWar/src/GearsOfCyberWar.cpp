@@ -92,6 +92,7 @@
 #include "TakeScreenshot.h"
 #include "SendHttpRequest.h"
 #include "DownloadFileFromWeb.h"
+#include "RandomGenerator.h"
 
 int main (int argc, char* argv) {
 	printf("GearsOfCyberWar Copyright (C) 2015 Jonathan Racicot.\n");
@@ -114,9 +115,9 @@ int main (int argc, char* argv) {
 	TestScreenshot();
 	printf("[*] Testing Http Connectivity...\n");
 	TestHttpRequest();
-	printf("[*] Testing Http Connectivity...\n");
-	TestHttpRequest();
 	printf("[*] Testing DownloadFileViaUrlmon...\n");
 	TestDownloadFile();
+	printf("[*] Testing Random Generators...\n");
+	TestRandomGenerators();
 	return 0;
 }

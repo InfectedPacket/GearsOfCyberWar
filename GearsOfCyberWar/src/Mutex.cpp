@@ -21,6 +21,9 @@ int SetupMutex(wchar_t* MutexName) {
 	return 0;
 }
 
+/**
+
+*/
 bool MutexExists(wchar_t* MutexName) {
 	HANDLE hMutex = OpenMutex(SYNCHRONIZE,
 		FALSE, MutexName);

@@ -75,7 +75,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\Base64.h" />
+    <ClInclude Include="src\CommandShell.h" />
     <ClInclude Include="src\DownloadFileFromWeb.h" />
+    <ClInclude Include="src\FileIO.h" />
     <ClInclude Include="src\GetProcessList.h" />
     <ClInclude Include="src\GetWindowsVersionInfo.h" />
     <ClInclude Include="src\Mutex.h" />
@@ -85,8 +87,12 @@
     <ClInclude Include="src\XorCrypt.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\AntiDebugging.cpp" />
+    <ClCompile Include="src\AntiDisassembly.cpp" />
     <ClCompile Include="src\Base64.cpp" />
+    <ClCompile Include="src\CommandShell.cpp" />
     <ClCompile Include="src\DownloadFileFromWeb.cpp" />
+    <ClCompile Include="src\FileIO.cpp" />
     <ClCompile Include="src\GearsOfCyberWar.cpp" />
     <ClCompile Include="src\GetProcessList.cpp" />
     <ClCompile Include="src\GetWindowsVersionInfo.cpp" />

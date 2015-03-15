@@ -94,6 +94,8 @@
 #include "DownloadFileFromWeb.h"
 #include "RandomGenerator.h"
 #include "Mutex.h"
+#include "FileIO.h"
+#include "CommandShell.h"
 
 int main (int argc, char* argv) {
 	printf("GearsOfCyberWar Copyright (C) 2015 Jonathan Racicot.\n");
@@ -122,5 +124,9 @@ int main (int argc, char* argv) {
 	TestRandomGenerators();
 	printf("[*] Testing Mutexes...\n");
 	TestMutex();
+	printf("[*] Testing File Input/Output...\n");
+	TestFileIO();
+	printf("[*] Testing Shell...\n");
+	TestCommandShell();
 	return 0;
 }

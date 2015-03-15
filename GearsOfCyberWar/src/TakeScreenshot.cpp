@@ -91,6 +91,15 @@
 #include <ole2.h>
 #include <olectl.h>
 //LPCWSTR filename
+
+/**
+<summary></summary>
+<param name="hOutput"></param>
+<param name=""></param>
+<param name=""></param>
+<returns></returns>
+<example></example>
+*/
 bool SaveScreenCaptureToBitmap(HANDLE hOutput, HBITMAP bmp, HPALETTE pal)
 {
     bool result = false;
@@ -145,8 +154,22 @@ bool SaveScreenCaptureToBitmap(HANDLE hOutput, HBITMAP bmp, HPALETTE pal)
     return result;
 }
 
-
-bool TakeScreenCapture(HANDLE fname){
+/**
+<summary>
+</summary>
+<example>
+	wchar_t* ScreenshotFile = L"C:\\tmp\\screenshot.bmp";
+	HANDLE hOutput = CreateFile(ScreenshotFile, GENERIC_WRITE, FILE_SHARE_READ, 0,
+                CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+	result = TakeScreenCapture(hOutput);
+	CloseHandle(hOutput);
+</example>
+<param name="hOutputFile">A handle to a file or stream to which
+the bitmap will be written.</param>
+<returns>Returns <i>true</i> if the function completed successfully,
+otherwise returns <i>false</i></returns>
+*/
+bool TakeScreenCapture(HANDLE hOutputFile){
     HDC hdcSource = GetDC(NULL);					//Get context to desktop window
     HDC hdcMemory = CreateCompatibleDC(hdcSource);  //Get context to memory
 
@@ -165,21 +188,20 @@ bool TakeScreenCapture(HANDLE fname){
 
     DeleteDC(hdcSource);
     DeleteDC(hdcMemory);
-
-    //HPALETTE hpal = NULL;
-    return SaveScreenCaptureToBitmap(fname, hBitmap, NULL);
+    return SaveScreenCaptureToBitmap(hOutputFile, hBitmap, NULL);
 }
 
 
 
 int TestScreenshot() {
 	int result = 0;
-	const wchar_t* ScreenshotFile = L"C:\\tmp\\screenshot.bmp";
+	wchar_t* ScreenshotFile = L"C:\\tmp\\screenshot.bmp";
 	HANDLE hOutput = CreateFile(ScreenshotFile, GENERIC_WRITE, FILE_SHARE_READ, 0,
                 CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 	printf("[*] Taking capture of screen...\n");
-	//-result = SaveScreenshotToFile(ScreenshotFile);
 	result = TakeScreenCapture(hOutput);
 	CloseHandle(hOutput);
+	hOutput = NULL;
+	ScreenshotFile = NULL;
 	return result;
 }

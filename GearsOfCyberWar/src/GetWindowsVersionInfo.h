@@ -89,6 +89,19 @@
 #define		ERROR_NULL_VALUE		0x11
 #define		ERROR_WINDOWS_API		0x20
 
+/**
+<summary></summary>
+<param name="VersionMajor"></param>
+<param name="VersionMinor"></param>
+<param name="BuildNumber"></param>
+<param name="PlatformId"></param>
+<param name="ServicePackMajor"></param>
+<param name="ServicePackMinor"></param>
+<param name="Suite"></param>
+<param name="ProductType"></param>
+<param name="ServerBuild"></param>
+<example></example>
+*/
 int GetWindowsVersionInfo(unsigned char* VersionMajor, 
 							unsigned char* VersionMinor, 
 							unsigned short* BuildNumber,
@@ -99,6 +112,18 @@ int GetWindowsVersionInfo(unsigned char* VersionMajor,
 							unsigned char* ProductType,
 							unsigned char* ServerBuild);
 
+/**
+
+<param name="VersionMajor"></param>
+<param name="VersionMinor"></param>
+<param name="BuildNumber"></param>
+<param name="PlatformId"></param>
+<param name="ServicePackMajor"></param>
+<param name="ServicePackMinor"></param>
+<param name="Suite"></param>
+<param name="ProductType"></param>
+<param name="ServerBuild"></param>
+*/
 char* GetWindowsVersionDesc(unsigned char* VersionMajor, 
 							unsigned char* VersionMinor, 
 							unsigned short* BuildNumber,

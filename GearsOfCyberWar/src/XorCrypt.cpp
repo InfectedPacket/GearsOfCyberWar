@@ -64,7 +64,8 @@
 // <author>Jonathan Racicot</author>
 // <email>infectedpacket@gmail.com</email>
 // <date>2015-03-01</date>
-// <summary>C++ implementation of the XOR encryption/decryption mechanism.</summary>
+// <summary>C++ implementation of the XOR encryption/decryption mechanism.
+// </summary>
 
 ▓                                                                            ▓
 ▓▌                                                                          ▐▓
@@ -108,7 +109,7 @@ ignored.</para>
 <param name="Key"></param>
 <param name="KeyLength"></param>
 <returns>An array of bytes XOR'd with the given key.</returns>
-<seealso cref="http://en.wikipedia.org/wiki/XOR_cipher">XOR Cipher</seealso>
+<see cref="http://en.wikipedia.org/wiki/XOR_cipher">XOR Cipher</see>
 */
 unsigned char* XorCrypt(unsigned char* CipherData, unsigned int DataLength, 
 	char* Key, unsigned int KeyLength) {
